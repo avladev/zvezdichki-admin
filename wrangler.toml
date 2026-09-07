@@ -1,3 +1,19 @@
 name = "zvezdichki-admin"
 main = "src/index.js"
 compatibility_date = "2023-03-24"
+
+# Preview URL-ите (*-<version>.workers.dev) не са нужни и не са в
+# ALLOWED_DOMAINS. Изрично изключени, за да не ги пуска wrangler сам.
+preview_urls = false
+
+# ВАЖНО: `wrangler deploy` заменя цялата настройка на Worker-а с тази тук.
+# Всяка обикновена променлива, зададена само в таблото на Cloudflare, се
+# изтрива при следващото качване — затова ALLOWED_DOMAINS стои в този файл.
+#
+# GITHUB_CLIENT_ID и GITHUB_CLIENT_SECRET НЕ влизат тук — хранилището е
+# публично. Те са secrets и се задават отделно:
+#     npx wrangler secret put GITHUB_CLIENT_ID
+#     npx wrangler secret put GITHUB_CLIENT_SECRET
+# Secrets не се пипат от `wrangler deploy`.
+[vars]
+ALLOWED_DOMAINS = "zvezdichki.com,newsite.zvezdichki.com"
